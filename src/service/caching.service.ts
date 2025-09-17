@@ -1,6 +1,7 @@
 import redisClient from "../config/redisClient.config.js";
 import {
   GOOGLE_ACCESS_TOKEN_EXPIRES_IN_MS,
+  GOOGLE_AUTHORIZATION_STATE,
   GOOGLE_REFRESH_TOKEN_EXPIRES_IN_MS,
   REDIS_USER_GOOGLE_ACCESS_TOKEN_PREFIX,
   REDIS_USER_GOOGLE_REFRESH_TOKEN_PREFIX,
@@ -74,6 +75,23 @@ class CachingService {
       `${REDIS_USER_GOOGLE_REFRESH_TOKEN_PREFIX}:${userId}`
     );
     await redisClient.del(`${REDIS_USER_GOOGLE_ACCESS_TOKEN_PREFIX}:${userId}`);
+  }
+
+  static async saveGoogleOauthState(state: string) {
+    await redisClient.set(`${GOOGLE_AUTHORIZATION_STATE}:${state}`, 1, {
+      expiration: { type: "PX", value: 600000 },
+    }); // expires in 10m
+  }
+
+  static async googleOauthStateExists(state: string) {
+    const exist = await redisClient.exists(
+      `${GOOGLE_AUTHORIZATION_STATE}:${state}`
+    );
+    if (exist === 1) {
+      redisClient.del(`${GOOGLE_AUTHORIZATION_STATE}:${state}`);
+      return true;
+    }
+    return false;
   }
 }
 export default CachingService;

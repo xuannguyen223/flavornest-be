@@ -1,5 +1,3 @@
-// schema.prisma
-
 // generator erd {
 //   provider = "prisma-erd-generator"
 //   includeRelationFromFields = true
@@ -61,10 +59,11 @@ model Recipe {
   title        String
   description  String?
   instructions RecipeInstruction[]
-  tags         Json
   ingredients  RecipeIngredient[]
-  totalTime     Int?            // in minutes
+  totalTime    Int?            // in minutes
   servings     Int?
+  rating       Float           @default(0)
+  ratingCount  Int             @default(0)
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
 
@@ -88,9 +87,19 @@ model RecipeInstruction {
 }
 
 model Category {
-  id       String            @id @default(cuid())
-  name     String            @unique
-  recipes  RecipeCategory[]
+  id           String            @id @default(cuid())
+  name         String            @unique
+  type         CategoryType
+  description  String?
+  recipes      RecipeCategory[]
+}
+
+enum CategoryType {
+  CUISINE
+  MEAL_TYPE
+  DIETARY
+  COOKING_METHOD
+  MAIN_INGREDIENT
 }
 
 model RecipeCategory {

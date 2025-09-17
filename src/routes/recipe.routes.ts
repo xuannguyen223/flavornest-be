@@ -21,29 +21,29 @@ class RecipeRoutes extends BaseRouter {
       {
         // get all recipes (optionally filter by authorId via query param)
         method: "get",
-        path: "/get", // api/recipe/get?authorId=
+        path: "/get", // api/recipe/get
         middlewares: [],
         handler: RecipeController.getAllRecipes,
       },
       {
         // get all category
         method: "get",
-        path: "/category/get", // api/recipe/category/create
+        path: "/category/get", // api/recipe/category/get?type=
         middlewares: [],
         handler: RecipeController.getAllCategory,
       },
-      {
-        // create a new category
-        method: "post",
-        path: "/category/create", // api/recipe/category/create
-        middlewares: [
-          AuthMiddleware.authenticateUser,
-          ValidationMiddleware.validateBody(
-            recipeSchema.createCategory.shape.body
-          ),
-        ],
-        handler: RecipeController.createCategory,
-      },
+      // {
+      //   // create a new category
+      //   method: "post",
+      //   path: "/category/create", // api/recipe/category/create
+      //   middlewares: [
+      //     AuthMiddleware.authenticateUser,
+      //     ValidationMiddleware.validateBody(
+      //       recipeSchema.createCategory.shape.body
+      //     ),
+      //   ],
+      //   handler: RecipeController.createCategory,
+      // },
       {
         // create a new recipe
         method: "post",
@@ -84,7 +84,7 @@ class RecipeRoutes extends BaseRouter {
       {
         // create a new recipe ingredients
         method: "post",
-        path: "/ingredient/create", // api/recipe/create
+        path: "/ingredient/create",
         middlewares: [
           AuthMiddleware.authenticateUser,
           ValidationMiddleware.validateBody(
@@ -96,7 +96,7 @@ class RecipeRoutes extends BaseRouter {
       {
         // create a new recipe instructions
         method: "post",
-        path: "/instruction/create", // api/recipe/create
+        path: "/instruction/create",
         middlewares: [
           AuthMiddleware.authenticateUser,
           ValidationMiddleware.validateBody(

@@ -1,6 +1,10 @@
 import type { Request, Response } from "express";
 import RecipeService from "../service/recipe.service.js";
 import Send from "../utils/response.utils.js";
+import {
+  parseCreateRecipeData,
+  parseUpdateRecipeData,
+} from "../utils/recipe.utils.js";
 
 class RecipeController {
   /**
@@ -27,28 +31,9 @@ class RecipeController {
    */
   static createRecipe = async (req: Request, res: Response) => {
     try {
-      const {
-        title,
-        description,
-        tags,
-        totalTime,
-        servings,
-        categoryId,
-        authorId,
-      } = req.body;
+      const createData = parseCreateRecipeData(req);
 
-      const recipe = await RecipeService.createRecipe({
-        title,
-        description,
-        tags,
-        totalTime,
-        servings,
-        author: { connect: { id: authorId } },
-      });
-
-      if (categoryId) {
-        await RecipeService.addRecipeCategory(recipe.id, categoryId);
-      }
+      const recipe = await RecipeService.createRecipe(createData);
 
       return Send.success(res, { recipe }, "Recipe created successfully");
     } catch (error) {
@@ -59,7 +44,8 @@ class RecipeController {
 
   static getAllCategory = async (req: Request, res: Response) => {
     try {
-      const categoryList = await RecipeService.getAllCategory();
+      const type = req.query.type;
+      const categoryList = await RecipeService.getAllCategory(type ? type as string : undefined);
       return Send.success(res, { categoryList }, "Get all categories");
     } catch (error) {
       console.error("Error getting all category:", error);
@@ -85,14 +71,29 @@ class RecipeController {
   static updateRecipe = async (req: Request, res: Response) => {
     try {
       const recipeId = req.params.recipeId as string;
-      const updates = req.body;
+      const updateData = parseUpdateRecipeData(req);
 
       const recipe = await RecipeService.getRecipeById(recipeId);
-      if (recipe?.authorId !== req.cookierUserId) {
+      if (!recipe) {
+        return Send.notFound(res, {}, "Recipe not found!");
+      }
+      if (recipe.authorId !== req.cookierUserId) {
         return Send.unauthorized(res, null, "Unauthorized");
       }
 
-      const updatedRecipe = await RecipeService.updateRecipe(recipeId, updates);
+      if ((req.body.rating as number) > 0) {
+        const newRatingCount = recipe.ratingCount + 1;
+        const newRating =
+          (recipe.rating * recipe.ratingCount + req.body.rating) /
+          newRatingCount;
+        updateData.rating = Math.round(newRating * 10) / 10;
+        updateData.ratingCount = newRatingCount;
+      }
+
+      const updatedRecipe = await RecipeService.updateRecipe(
+        recipeId,
+        updateData
+      );
 
       if (!updatedRecipe) {
         return Send.notFound(res, {}, "Recipe not found");

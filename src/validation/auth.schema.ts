@@ -19,20 +19,13 @@ const login = z.object({
   }),
 });
 
-const register = z
-  .object({
-    body: z.object({
-      email: z.email("Invalid email format"),
-      password: passwordSchema,
-      password_confirmation: z
-        .string()
-        .min(1, "Password confirmation is required"),
-    }),
-  })
-  .refine((data) => data.body.password === data.body.password_confirmation, {
-    path: ["password_confirmation"],
-    message: "Passwords do not match",
-  });
+const register = z.object({
+  body: z.object({
+    email: z.email("Invalid email format"),
+    password: passwordSchema,
+    fullname: z.string().optional(),
+  }),
+});
 
 const authSchema = {
   login,
