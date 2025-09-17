@@ -12,5 +12,5 @@ export default defineConfig({
   },
   typedSql: {
     path: path.join("prisma", "queries"),
-  }
+  },
 });

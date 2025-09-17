@@ -14,8 +14,8 @@ class RecipeService {
     return RecipeRepository.queryAll();
   };
 
-  static getAllCategory = () => {
-    return RecipeRepository.queryAllCategory();
+  static getAllCategory = (type?: string) => {
+    return RecipeRepository.queryAllCategory(type);
   };
 
   static createCategory = (category: CategoryCreateInput) => {

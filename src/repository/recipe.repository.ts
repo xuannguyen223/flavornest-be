@@ -1,4 +1,4 @@
-import { PrismaClient } from "../generated/prisma/client.js";
+import { CategoryType, PrismaClient } from "../generated/prisma/client.js";
 import type {
   CategoryCreateInput,
   RecipeCreateInput,
@@ -42,8 +42,10 @@ class RecipeRepository {
     });
   };
 
-  static queryAllCategory = async () => {
-    return await prisma.category.findMany();
+  static queryAllCategory = async (type?: string) => {
+    return await prisma.category.findMany({
+      where: type ? { type: type as CategoryType } : {},
+    });
   };
 
   static createNewCategory = async (categoryData: CategoryCreateInput) => {

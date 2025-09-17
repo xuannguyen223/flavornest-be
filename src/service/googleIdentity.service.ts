@@ -1,5 +1,4 @@
 import { google } from "googleapis";
-import type { Credentials } from "google-auth-library";
 import UserService from "./user.service.js";
 import { Gender } from "../generated/prisma/enums.js";
 import { getAgeFromBirthday } from "../utils/constants.utils.js";
@@ -39,7 +38,7 @@ class GoogleIdentityService {
    *   For more information on handling refresh tokens,
    *   see https://github.com/googleapis/google-api-nodejs-client#handling-refresh-tokens
    */
-  static generateAuthUrl = (state: string) => {
+  static generateAuthUrl = async (state: string) => {
     return this.oauth2Client.generateAuthUrl({
       // 'online' (default) or 'offline' (gets refresh_token)
       access_type: "offline",

@@ -7,10 +7,8 @@ import { z } from "zod";
 const recipeIdSchema = z.string().trim().min(1, "Recipe ID is required");
 const titleSchema = z.string().min(1, "Title is required");
 const descriptionSchema = z.string().optional();
-const tagsSchema = z.array(z.string()).optional();
 const totalTimeSchema = z.number().int().positive().optional();
 const servingsSchema = z.number().int().positive().optional();
-const authorIdSchema = z.string().trim().min(1, "Author ID is required");
 const userIdSchema = z.string().trim().min(1, "User ID is required");
 const categoryNameSchema = z
   .string()
@@ -48,10 +46,34 @@ const createRecipe = z.object({
   body: z.object({
     title: titleSchema,
     description: descriptionSchema,
-    tags: tagsSchema,
     totalTime: totalTimeSchema,
     servings: servingsSchema,
-    authorId: authorIdSchema,
+    ingredients: z
+      .array(
+        z.object({
+          name: z.string().min(1, "Ingredient name is required"),
+          quantity: z.number().positive("Quantity must be positive"),
+          unit: z.string().min(1, "Unit is required"),
+        })
+      )
+      .optional(),
+
+    instructions: z
+      .array(
+        z.object({
+          step: z.number().int().positive("Step must be a positive integer"),
+          description: z.string().min(1, "Instruction description is required"),
+        })
+      )
+      .optional(),
+
+    categories: z
+      .array(
+        z.object({
+          categoryId: z.string().cuid("Invalid category ID format"),
+        })
+      )
+      .optional(),
   }),
 });
 
@@ -63,10 +85,37 @@ const updateRecipe = z.object({
   body: z
     .object({
       title: titleSchema.optional(),
-      description: descriptionSchema,
-      tags: tagsSchema,
-      totalTime: totalTimeSchema,
-      servings: servingsSchema,
+      description: descriptionSchema.optional(),
+      totalTime: totalTimeSchema.optional(),
+      servings: servingsSchema.optional(),
+      ingredients: z
+        .array(
+          z.object({
+            name: z.string().min(1, "Ingredient name is required"),
+            quantity: z.number().positive("Quantity must be positive"),
+            unit: z.string().min(1, "Unit is required"),
+          })
+        )
+        .optional(),
+
+      instructions: z
+        .array(
+          z.object({
+            step: z.number().int().positive("Step must be a positive integer"),
+            description: z
+              .string()
+              .min(1, "Instruction description is required"),
+          })
+        )
+        .optional(),
+
+      categories: z
+        .array(
+          z.object({
+            categoryId: z.string().cuid("Invalid category ID format"),
+          })
+        )
+        .optional(),
     })
     .strict(),
 });

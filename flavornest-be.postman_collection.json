@@ -1,395 +1,535 @@
 {
-  "info": {
-    "_postman_id": "976293a8-41f1-4f95-a77d-45e06cf535cc",
-    "name": "flavornest-be",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "47345513"
-  },
-  "item": [
-    {
-      "name": "User APIs",
-      "item": [
-        {
-          "name": "Get User By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/user/get/cmfhuwbrl0002bbk8gsl69dmt",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "user", "get", "cmfhuwbrl0002bbk8gsl69dmt"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get User Prodfile By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/user/profile/cmfhuwbrl0002bbk8gsl69dmt",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "user", "profile", "cmfhuwbrl0002bbk8gsl69dmt"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update User Profile",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Jane Smith UNEDITED\",\r\n    \"age\": 25,\r\n    \"gender\": \"FEMALE\",\r\n    \"bio\": \"Italian cuisine lover.\",\r\n    \"avatarUrl\": \"https://example.com/jane.png\",\r\n    \"userId\": \"cmfhuwbrl0002bbk8gsl69dmt\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/user/profile/cmfhuwbrl0002bbk8gsl69dmt",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "user", "profile", "cmfhuwbrl0002bbk8gsl69dmt"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "New request",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": ""
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Recipe APIs",
-      "item": [
-        {
-          "name": "Get Recipe By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/get/cmfhuwbru0007bbk8gwewzatj",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "get", "cmfhuwbru0007bbk8gwewzatj"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Recipe",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/get",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "get"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Recipes By Author",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", ""]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Recipe User Favorite",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/cmfhuwbrg0000bbk8vnjfpbi6/favorites",
-              "host": ["{{flavornest-be-url}}"],
-              "path": [
-                "api",
-                "recipe",
-                "cmfhuwbrg0000bbk8vnjfpbi6",
-                "favorites"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Recipe",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"title\": \"Test Recipe\",\r\n    \"description\": \"Test Description\",\r\n    \"tags\": [\"tagA, tagB\"],\r\n    \"totalTime\": 120,\r\n    \"servings\": 4,\r\n    \"authorId\": \"cmfhuwbrg0000bbk8vnjfpbi6\",\r\n    \"categoryId\": \"cmfi6o71q0000bbxgdxe5jmgg\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/create",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "create"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update Recipe",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"description\": \"Updated description\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/update/cmfi8y5ii0001bb3094n8jdlx",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "update", "cmfi8y5ii0001bb3094n8jdlx"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Recipe",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/delete/cmfi8y5ii0001bb3094n8jdlx",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "delete", "cmfi8y5ii0001bb3094n8jdlx"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get All Category",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/category/get",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "category", "get"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Category",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Lunch\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/category/create",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "category", "create"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add Recipe Ingredients",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"recipeId\": \"cmfhuwbru0007bbk8gwewzatj\",\r\n    \"ingredients\": [\r\n        {\r\n            \"name\": \"Sugar\",\r\n            \"quantity\": 1,\r\n            \"unit\": \"kg\"\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/ingredient/create",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "ingredient", "create"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add Recipe Instructions",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"recipeId\": \"cmfhuwbru0007bbk8gwewzatj\",\r\n    \"instructions\": [\r\n        {\r\n            \"step\": 10,\r\n            \"description\": \"For fun\",\r\n            \"imageUrl\": \"none\"\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/instruction/create",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "instruction", "create"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Add Favorite Recipe",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"userId\": \"cmfhuwbrg0000bbk8vnjfpbi6\",\r\n    \"recipeId\": \"cmfhuwbru0007bbk8gwewzatj\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/favorites",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "recipe", "favorites"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete Favorite Recipe",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/recipe/favorites/cmfhuwbrg0000bbk8vnjfpbi6/cmfhuwbru0007bbk8gwewzatj",
-              "host": ["{{flavornest-be-url}}"],
-              "path": [
-                "api",
-                "recipe",
-                "favorites",
-                "cmfhuwbrg0000bbk8vnjfpbi6",
-                "cmfhuwbru0007bbk8gwewzatj"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Auth APIs",
-      "item": [
-        {
-          "name": "Register User",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"johncole2@example.com\",\r\n    \"password\": \"@StrongPass9999\",\r\n    \"password_confirmation\": \"@StrongPass9999\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/auth/register",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "auth", "register"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Login",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"johncole2@example.com\",\r\n    \"password\": \"@StrongPass9999\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/auth/login",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "auth", "login"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Logout",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/auth/logout",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "auth", "logout"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Refresh Token",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "{{flavornest-be-url}}/api/auth/refresh-token",
-              "host": ["{{flavornest-be-url}}"],
-              "path": ["api", "auth", "refresh-token"]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "key": "flavornest-be-url",
-      "value": "http://localhost:3000",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "976293a8-41f1-4f95-a77d-45e06cf535cc",
+		"name": "flavornest-be",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47345513"
+	},
+	"item": [
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Get User By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/user/get/cmfhuwbrl0002bbk8gsl69dmt",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"get",
+								"cmfhuwbrl0002bbk8gsl69dmt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Prodfile By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/user/profile/cmfhuwbrl0002bbk8gsl69dmt",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"profile",
+								"cmfhuwbrl0002bbk8gsl69dmt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jane Smith UNEDITED\",\r\n    \"age\": 25,\r\n    \"gender\": \"FEMALE\",\r\n    \"bio\": \"Italian cuisine lover.\",\r\n    \"avatarUrl\": \"https://example.com/jane.png\",\r\n    \"userId\": \"cmfhuwbrl0002bbk8gsl69dmt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/user/profile/cmfhuwbrl0002bbk8gsl69dmt",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"profile",
+								"cmfhuwbrl0002bbk8gsl69dmt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recipe APIs",
+			"item": [
+				{
+					"name": "Get Recipe By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/get/cmfhuwbru0007bbk8gwewzatj",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"get",
+								"cmfhuwbru0007bbk8gwewzatj"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Recipe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/get",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Recipes By Author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recipe User Favorite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/cmfhuwbrg0000bbk8vnjfpbi6/favorites",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"cmfhuwbrg0000bbk8vnjfpbi6",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Test Recipe\",\r\n    \"description\": \"Test Description\",\r\n    \"totalTime\": 120,\r\n    \"servings\": 4,\r\n    \"ingredients\": [\r\n        { \"name\": \"Flour\", \"quantity\": 200, \"unit\": \"grams\" },\r\n        { \"name\": \"Milk\", \"quantity\": 300, \"unit\": \"ml\" },\r\n        { \"name\": \"Eggs\", \"quantity\": 2, \"unit\": \"pcs\" }\r\n    ],\r\n    \"instructions\": [\r\n        { \"step\": 1, \"description\": \"Mix flour, milk, and eggs.\" },\r\n        { \"step\": 2, \"description\": \"Heat pan and pour batter.\" },\r\n        { \"step\": 3, \"description\": \"Cook until golden brown.\" }\r\n    ],\r\n    \"categories\": [\r\n        { \"categoryId\": \"cmfnks4dx0004bb6wzkp1mm0n\" },\r\n        { \"categoryId\": \"cmfnks4e30005bb6waty8gjk8\" }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/create",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Recipe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Update Test Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/update/cmfnm1m3e0000bbnc4pknzlnt",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"update",
+								"cmfnm1m3e0000bbnc4pknzlnt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Recipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/delete/cmfi8y5ii0001bb3094n8jdlx",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"delete",
+								"cmfi8y5ii0001bb3094n8jdlx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/category/get?type=CUISINE",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"category",
+								"get"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "CUISINE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lunch\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/category/create",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"category",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Recipe Ingredients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"recipeId\": \"cmfhuwbru0007bbk8gwewzatj\",\r\n    \"ingredients\": [\r\n        {\r\n            \"name\": \"Sugar\",\r\n            \"quantity\": 1,\r\n            \"unit\": \"kg\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/ingredient/create",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"ingredient",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Recipe Instructions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"recipeId\": \"cmfhuwbru0007bbk8gwewzatj\",\r\n    \"instructions\": [\r\n        {\r\n            \"step\": 10,\r\n            \"description\": \"For fun\",\r\n            \"imageUrl\": \"none\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/instruction/create",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"instruction",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Favorite Recipe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"cmfhuwbrg0000bbk8vnjfpbi6\",\r\n    \"recipeId\": \"cmfhuwbru0007bbk8gwewzatj\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/favorites",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Favorite Recipe",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/favorites/cmfhuwbrg0000bbk8vnjfpbi6/cmfhuwbru0007bbk8gwewzatj",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"favorites",
+								"cmfhuwbrg0000bbk8vnjfpbi6",
+								"cmfhuwbru0007bbk8gwewzatj"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth APIs",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johncole2@example.com\",\r\n    \"password\": \"@StrongPass9999\",\r\n    \"fullname\": \"John Cole 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/auth/register",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johncole2@example.com\",\r\n    \"password\": \"@StrongPass9999\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/auth/login",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/auth/logout",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/auth/refresh-token",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "flavornest-be-url",
+			"value": "http://localhost:3000",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "flavornest-be-url",
+			"value": "https://flavornest-be.vercel.app",
+			"type": "string"
+		},
+		{
+			"key": "flavornest-be-url",
+			"value": "https://test-be-express-32pvmu6n1-lukes-projects-761b9f6c.vercel.app/",
+			"type": "string",
+			"disabled": true
+		}
+	]
 }

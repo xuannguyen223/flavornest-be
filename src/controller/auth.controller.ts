@@ -2,23 +2,25 @@ import crypto from "crypto";
 import url from "url";
 import type { Request, Response } from "express";
 import UserService from "../service/user.service.js";
-import type { User } from "../generated/prisma/client.js";
+import type { Profile, User } from "../generated/prisma/client.js";
 import type authSchema from "../validation/auth.schema.js";
 import type z from "zod";
 import Send from "../utils/response.utils.js";
 import GoogleIdentityService from "../service/googleIdentity.service.js";
 import authConfig from "../config/auth.config.js";
+import CachingService from "../service/caching.service.js";
 
 class AuthController {
   static register = async (req: Request, res: Response) => {
     // Destructure the request body into the expected fields
-    const { email, password } = req.body as z.infer<
+    const { email, password, fullname } = req.body as z.infer<
       typeof authSchema.register.shape.body
     >;
 
     try {
       // 1. Check if the email already exists in the database
       const existingUser = await UserService.getUserByEmail(email);
+      console.log(existingUser);
       // If a user with the same email exists, return an error response
       if (existingUser) {
         return Send.error(res, null, "Email is already in use.");
@@ -29,6 +31,14 @@ class AuthController {
         email,
         password,
       } as User);
+
+      // 3. Create user profile
+      if (newUser && newUser.id) {
+        await UserService.createOrUpdateProfile({
+          userId: newUser.id,
+          name: fullname,
+        } as Profile);
+      }
 
       // 4. Return a success response with the new user data (excluding password for security)
       return Send.success(
@@ -155,8 +165,9 @@ class AuthController {
   static googleOAuthAuthorize = async (req: Request, res: Response) => {
     // Generate a secure random state value.
     const state = crypto.randomBytes(32).toString("hex");
-    // Store state in the session
-    req.session.state = state;
+
+    // Store it in Redis to verify later
+    await CachingService.saveGoogleOauthState(state);
 
     // Generate a url that asks permissions for the Drive activity and Google Calendar scope
     const authorizationUrl = GoogleIdentityService.generateAuthUrl(state);
@@ -176,10 +187,10 @@ class AuthController {
     if (q.error) {
       // An error response e.g. error=access_denied
       console.log("Error:" + q.error);
-    } else if (q.state !== req.session.state) {
+    } else if (await CachingService.googleOauthStateExists(q.state as string)) {
       //check state value
       console.log("State mismatch. Possible CSRF attack");
-      res.end("State mismatch. Possible CSRF attack");
+      return Send.badRequest(res, {}, "State mismatch. Possible CSRF attack");
     } else {
       console.log("Code:" + q.code);
       if (typeof q.code === "string") {
