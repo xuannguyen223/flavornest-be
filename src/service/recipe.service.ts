@@ -1,3 +1,4 @@
+import type { RecipeRating } from "../generated/prisma/client.js";
 import type {
   CategoryCreateInput,
   RecipeCreateInput,
@@ -29,6 +30,10 @@ class RecipeService {
   static createRecipe = (recipe: RecipeCreateInput) => {
     return RecipeRepository.createNewRecipe(recipe);
   };
+
+  static updateRecipeRating = async (recipeRating: RecipeRating) => {
+    return await RecipeRepository.updateOrInsertRatingByRecipeId(recipeRating);
+  }
 
   static updateRecipe = (
     recipeId: string,

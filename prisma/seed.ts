@@ -4,7 +4,24 @@ import { PrismaClient } from "../src/generated/prisma/client.js";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("🌱 Starting seed...");
+  console.log("🌱 Clearing old data...");
+
+  // Order matters because of foreign keys
+  await prisma.recipeRating.deleteMany();
+  await prisma.favoriteRecipe.deleteMany();
+  await prisma.userRecipeList.deleteMany();
+  await prisma.userRecipeListItem.deleteMany();
+  await prisma.recipeIngredient.deleteMany();
+  await prisma.recipeInstruction.deleteMany();
+  await prisma.recipeCategory.deleteMany();
+  await prisma.recipe.deleteMany();
+  await prisma.profile.deleteMany();
+  await prisma.user.deleteMany();
+  await prisma.category.deleteMany();
+
+  console.log("✅ Old data removed!");
+  
+  console.log("🌱 Seeding new data...");
 
   // Cuisine
   await Promise.all([
@@ -83,7 +100,7 @@ async function main() {
 
   //----------------------------------------------------------------- REMOVE AFTER DONE
 
-  // 1. Create users
+  // ================== Users ==================
   const john = await prisma.user.create({
     data: {
       email: "john@example.com",
@@ -117,19 +134,17 @@ async function main() {
 
   const listCategories = await prisma.category.findMany();
 
-  // 3. Create recipes with ingredients, instructions, categories
+  // ================== Recipes ==================
   const pancake = await prisma.recipe.create({
     data: {
       title: "Pancakes",
       description: "Fluffy homemade pancakes",
-      prepTime: 10, 
-      cookTime: 10, 
+      prepTime: 10,
+      cookTime: 10,
       servings: 2,
       authorId: john.id,
-      rating: 4.5, // optional
-      ratingCount: 2, // optional
-      cookTips: "Serve warm with maple syrup", // new field (optional)
-      imageUrl: "https://example.com/pancakes.jpg", // optional
+      cookTips: "Serve warm with maple syrup",
+      imageUrl: "https://example.com/pancakes.jpg",
       ingredients: {
         create: [
           { name: "Flour", quantity: 200, unit: "grams" },
@@ -146,10 +161,10 @@ async function main() {
       },
       categories: {
         create: [
-          {categoryId: listCategories[0]?.id as string},
-          {categoryId: listCategories[1]?.id as string}
-        ]
-      }
+          { categoryId: listCategories[0]?.id as string },
+          { categoryId: listCategories[1]?.id as string },
+        ],
+      },
     },
   });
 
@@ -161,10 +176,8 @@ async function main() {
       cookTime: 20,
       servings: 2,
       authorId: jane.id,
-      rating: 5.0, // optional
-      ratingCount: 1, // optional
-      cookTips: "Use freshly grated Pecorino Romano cheese", // optional
-      imageUrl: "https://example.com/carbonara.jpg", // optional
+      cookTips: "Use freshly grated Pecorino Romano cheese",
+      imageUrl: "https://example.com/carbonara.jpg",
       ingredients: {
         create: [
           { name: "Spaghetti", quantity: 200, unit: "grams" },
@@ -181,26 +194,46 @@ async function main() {
       },
       categories: {
         create: [
-          {categoryId: listCategories[2]?.id as string},
-          {categoryId: listCategories[3]?.id as string}
-        ]
-      }
+          { categoryId: listCategories[2]?.id as string },
+          { categoryId: listCategories[3]?.id as string },
+        ],
+      },
     },
   });
 
-  // 4. Add favorite
+  // ================== Ratings ==================
+  await prisma.recipeRating.createMany({
+    data: [
+      { userId: john.id, recipeId: pancake.id, value: 4 },
+      { userId: jane.id, recipeId: pancake.id, value: 5 },
+    ],
+  });
+
+  // ================== Favorite ==================
   await prisma.favoriteRecipe.create({
     data: { userId: john.id, recipeId: pasta.id },
   });
 
-  // 5. Create user recipe list
-  await prisma.userRecipeList.create({
+  // ================== User Recipe List ==================
+  const userRecipeList = await prisma.userRecipeList.create({
     data: {
       name: "John’s Favorite Recipes",
-      userId: john.id,
-      recipes: {
-        create: [{ recipeId: pancake.id }, { recipeId: pasta.id }],
-      },
+      userId: john.id
+    },
+  });
+
+  // ================== User Recipe List Item ==================
+  await prisma.userRecipeListItem.create({
+    data: {
+      listId: userRecipeList.id,
+      recipeId: pancake.id,
+    },
+  });
+
+  await prisma.userRecipeListItem.create({
+    data: {
+      listId: userRecipeList.id,
+      recipeId: pasta.id,
     },
   });
 

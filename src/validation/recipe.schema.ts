@@ -38,7 +38,7 @@ const getAllRecipes = z.object({
   query: z.object({
     search: z.string().trim().min(1).optional(),
     filter: z.string().trim().min(1).optional()
-  })
+  }).optional()
 })
 
 // POST /recipe/category
@@ -87,7 +87,17 @@ const createRecipe = z.object({
   }),
 });
 
-// PUT /recipe/:recipeId
+// PUT /api/recipe/rating/:recipeId
+const updateRecipeRating = z.object({
+  params: z.object({
+    recipeId: recipeIdSchema,
+  }),
+  body: z.object({
+    rating: z.number().positive().min(1).max(5),
+  })
+});
+
+// PUT /api/recipe/update/:recipeId
 const updateRecipe = z.object({
   params: z.object({
     recipeId: recipeIdSchema,
@@ -190,6 +200,7 @@ export const recipeSchema = {
   createRecipe,
   createCategory,
   updateRecipe,
+  updateRecipeRating,
   deleteRecipe,
   addRecipeIngredientList,
   addRecipeInstructions,

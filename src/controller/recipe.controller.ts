@@ -5,6 +5,7 @@ import {
   parseCreateRecipeData,
   parseUpdateRecipeData,
 } from "../utils/recipe.utils.js";
+import type { RecipeRating } from "../generated/prisma/client.js";
 
 class RecipeController {
   /**
@@ -65,6 +66,23 @@ class RecipeController {
     }
   };
 
+  static updateRecipeRating = async (req: Request, res: Response) => {
+    try {
+      const recipeRating = {
+        value: req.body.rating as number,
+        userId: req.cookierUserId as string,
+        recipeId: req.params.recipeId as string
+      } as RecipeRating;
+
+      const update = await RecipeService.updateRecipeRating(recipeRating);
+
+      return Send.success(res, update, "Update rating successfully");
+    } catch (error) {
+      console.error("Error updating recipe:", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  }
+
   /**
    * Update an existing recipe
    */
@@ -79,15 +97,6 @@ class RecipeController {
       }
       if (recipe.authorId !== req.cookierUserId) {
         return Send.unauthorized(res, null, "Unauthorized");
-      }
-
-      if ((req.body.rating as number) > 0) {
-        const newRatingCount = recipe.ratingCount + 1;
-        const newRating =
-          (recipe.rating * recipe.ratingCount + req.body.rating) /
-          newRatingCount;
-        updateData.rating = Math.round(newRating * 10) / 10;
-        updateData.ratingCount = newRatingCount;
       }
 
       const updatedRecipe = await RecipeService.updateRecipe(
