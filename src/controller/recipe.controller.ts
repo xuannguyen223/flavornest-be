@@ -175,7 +175,13 @@ class RecipeController {
    */
   static getAllRecipes = async (req: Request, res: Response) => {
     try {
-      const recipes = await RecipeService.getAllRecipes();
+      const { filter, search } = req.query;
+
+      const options: { filter?: string; search?: string } = {};
+      if (typeof filter === "string") options.filter = filter;
+      if (typeof search === "string") options.search = search;
+
+      const recipes = await RecipeService.getAllRecipes(options);
 
       return Send.success(res, { recipes });
     } catch (error) {
