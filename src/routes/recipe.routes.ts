@@ -22,7 +22,7 @@ class RecipeRoutes extends BaseRouter {
         // get all recipes (optionally filter by authorId via query param)
         method: "get",
         path: "/get", // api/recipe/get
-        middlewares: [],
+        middlewares: [ValidationMiddleware.validateQuery(recipeSchema.getAllRecipes)],
         handler: RecipeController.getAllRecipes,
       },
       {
@@ -57,9 +57,35 @@ class RecipeRoutes extends BaseRouter {
         handler: RecipeController.createRecipe,
       },
       {
+        // update recipe rating
+        method: "put",
+        path: "/rating/:recipeId", // api/recipe/update/:recipeId
+        middlewares: [
+          AuthMiddleware.authenticateUser,
+          ValidationMiddleware.validate({
+            params: recipeSchema.updateRecipeRating.shape.params,
+            body: recipeSchema.updateRecipeRating.shape.body,
+          }),
+        ],
+        handler: RecipeController.updateRecipeRating,
+      },
+      {
         // update recipe
         method: "put",
         path: "/update/:recipeId", // api/recipe/update/:recipeId
+        middlewares: [
+          AuthMiddleware.authenticateUser,
+          ValidationMiddleware.validate({
+            params: recipeSchema.updateRecipe.shape.params,
+            body: recipeSchema.updateRecipe.shape.body,
+          }),
+        ],
+        handler: RecipeController.updateRecipe,
+      },
+      {
+        // rate recipe
+        method: "put",
+        path: "/rating/:recipeId", // api/recipe/update/:recipeId
         middlewares: [
           AuthMiddleware.authenticateUser,
           ValidationMiddleware.validate({

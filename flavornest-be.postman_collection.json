@@ -230,6 +230,35 @@
 					"response": []
 				},
 				{
+					"name": "Update Recipe Rating",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/recipe/rating/cmfphyg5s001wtsm80abakhor",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"recipe",
+								"rating",
+								"cmfphyg5s001wtsm80abakhor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete Recipe",
 					"request": {
 						"method": "DELETE",
