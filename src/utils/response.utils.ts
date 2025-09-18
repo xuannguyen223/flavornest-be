@@ -69,6 +69,11 @@ class Send {
     });
     return;
   }
+
+  static redirect(res: Response, url: string, status = 302) {
+    res.redirect(status, url);
+    return;
+  }
 }
 
 export default Send;

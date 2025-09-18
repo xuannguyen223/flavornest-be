@@ -58,7 +58,6 @@ class GoogleIdentityService {
     this.oauth2Client.setCredentials(tokens);
 
     // User authorized the request. Now, check which scopes were granted.
-    console.log("Granted scopes: " + tokens.scope);
     if (tokens.scope && this.verifyScopes(tokens.scope)) {
       const peopleAPI = google.people({
         version: "v1",
@@ -83,7 +82,7 @@ class GoogleIdentityService {
         const birthDate = response.data.birthdays?.find(
           (b) => b.metadata?.source?.type === "ACCOUNT"
         )?.date;
-        UserService.createOrUpdateProfile({
+        const profile = {
           userId: user.id,
           name: response.data.names?.[0]?.displayName || "",
           age: getAgeFromBirthday(
@@ -92,9 +91,10 @@ class GoogleIdentityService {
             birthDate?.day
           ),
           gender:
-            (response.data.genders?.[0]?.value as Gender) || Gender.FEMALE,
+            (response.data.genders?.[0]?.value?.toUpperCase() as Gender) || Gender.FEMALE,
           avatarUrl: response.data.photos?.[0]?.url || "",
-        } as Profile);
+        }
+        await UserService.createOrUpdateProfile(profile as Profile);
       }
 
       // Save refresh token to refresh in case access token was refreshed.

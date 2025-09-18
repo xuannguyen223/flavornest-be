@@ -8,8 +8,11 @@ export const parseCreateRecipeData = (req: Request): RecipeCreateInput => {
   const {
     title,
     description,
-    totalTime,
+    cookTips,
+    prepTime,
+    cookTime,
     servings,
+    imageUrl,
     ingredients,
     instructions,
     categories,
@@ -17,8 +20,11 @@ export const parseCreateRecipeData = (req: Request): RecipeCreateInput => {
   return {
     title: title,
     description: description,
-    totalTime: totalTime,
+    cookTips: cookTips,
+    prepTime: prepTime,
+    cookTime: cookTime,
     servings: servings,
+    imageUrl: imageUrl,
     author: { connect: { id: req.cookierUserId as string } },
     /**
      * ingredients: [
@@ -53,8 +59,11 @@ export const parseUpdateRecipeData = (req: Request): RecipeUpdateInput => {
   const {
     title,
     description,
-    totalTime,
+    cookTips,
+    prepTime,
+    cookTime,
     servings,
+    imageUrl,
     ingredients,
     instructions,
     categories,
@@ -63,8 +72,11 @@ export const parseUpdateRecipeData = (req: Request): RecipeUpdateInput => {
   const data: RecipeUpdateInput = {
     title,
     description,
-    totalTime,
+    cookTips,
+    prepTime,
+    cookTime,
     servings,
+    imageUrl,
     author: { connect: { id: req.cookierUserId as string } },
   };
 
