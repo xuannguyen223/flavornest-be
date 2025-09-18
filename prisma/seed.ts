@@ -115,16 +115,21 @@ async function main() {
     },
   });
 
+  const listCategories = await prisma.category.findMany();
+
   // 3. Create recipes with ingredients, instructions, categories
   const pancake = await prisma.recipe.create({
     data: {
       title: "Pancakes",
       description: "Fluffy homemade pancakes",
-      totalTime: 20,
+      prepTime: 10, 
+      cookTime: 10, 
       servings: 2,
       authorId: john.id,
-      rating: 4.5, // 👈 optional, defaults to 0
-      ratingCount: 2, // 👈 optional, defaults to 0
+      rating: 4.5, // optional
+      ratingCount: 2, // optional
+      cookTips: "Serve warm with maple syrup", // new field (optional)
+      imageUrl: "https://example.com/pancakes.jpg", // optional
       ingredients: {
         create: [
           { name: "Flour", quantity: 200, unit: "grams" },
@@ -139,6 +144,12 @@ async function main() {
           { step: 3, description: "Cook until golden brown." },
         ],
       },
+      categories: {
+        create: [
+          {categoryId: listCategories[0]?.id as string},
+          {categoryId: listCategories[1]?.id as string}
+        ]
+      }
     },
   });
 
@@ -146,11 +157,14 @@ async function main() {
     data: {
       title: "Pasta Carbonara",
       description: "Classic Italian pasta dish",
-      totalTime: 30,
+      prepTime: 10,
+      cookTime: 20,
       servings: 2,
       authorId: jane.id,
-      rating: 5.0, // 👈 optional
-      ratingCount: 1, // 👈 optional
+      rating: 5.0, // optional
+      ratingCount: 1, // optional
+      cookTips: "Use freshly grated Pecorino Romano cheese", // optional
+      imageUrl: "https://example.com/carbonara.jpg", // optional
       ingredients: {
         create: [
           { name: "Spaghetti", quantity: 200, unit: "grams" },
@@ -165,6 +179,12 @@ async function main() {
           { step: 3, description: "Mix with eggs and cheese." },
         ],
       },
+      categories: {
+        create: [
+          {categoryId: listCategories[2]?.id as string},
+          {categoryId: listCategories[3]?.id as string}
+        ]
+      }
     },
   });
 

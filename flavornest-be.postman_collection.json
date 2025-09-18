@@ -179,7 +179,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Test Recipe\",\r\n    \"description\": \"Test Description\",\r\n    \"totalTime\": 120,\r\n    \"servings\": 4,\r\n    \"ingredients\": [\r\n        { \"name\": \"Flour\", \"quantity\": 200, \"unit\": \"grams\" },\r\n        { \"name\": \"Milk\", \"quantity\": 300, \"unit\": \"ml\" },\r\n        { \"name\": \"Eggs\", \"quantity\": 2, \"unit\": \"pcs\" }\r\n    ],\r\n    \"instructions\": [\r\n        { \"step\": 1, \"description\": \"Mix flour, milk, and eggs.\" },\r\n        { \"step\": 2, \"description\": \"Heat pan and pour batter.\" },\r\n        { \"step\": 3, \"description\": \"Cook until golden brown.\" }\r\n    ],\r\n    \"categories\": [\r\n        { \"categoryId\": \"cmfnks4dx0004bb6wzkp1mm0n\" },\r\n        { \"categoryId\": \"cmfnks4e30005bb6waty8gjk8\" }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"title\": \"Test Recipe\",\r\n    \"description\": \"Test Description\",\r\n    \"cookTips\": \"some tips\",\r\n    \"prepTime\": 60,\r\n    \"cookTime\": 60,\r\n    \"servings\": 4,\r\n    \"imageUrl\": \"http://example-img.com/img.jpg\",\r\n    \"ingredients\": [\r\n        { \"name\": \"Flour\", \"quantity\": 200, \"unit\": \"grams\" },\r\n        { \"name\": \"Milk\", \"quantity\": 300, \"unit\": \"ml\" },\r\n        { \"name\": \"Eggs\", \"quantity\": 2, \"unit\": \"pcs\" }\r\n    ],\r\n    \"instructions\": [\r\n        { \"step\": 1, \"description\": \"Mix flour, milk, and eggs.\" },\r\n        { \"step\": 2, \"description\": \"Heat pan and pour batter.\" },\r\n        { \"step\": 3, \"description\": \"Cook until golden brown.\" }\r\n    ],\r\n    \"categories\": [\r\n        { \"categoryId\": \"cmfp3esm20000tspscmtz8c4p\" },\r\n        { \"categoryId\": \"cmfp3esmm0002tspssvvum3lc\" }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -207,7 +207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Update Test Description\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Test Recipe\",\r\n    \"description\": \"Test Description\",\r\n    \"cookTips\": \"UPDATED some tips\",\r\n    \"prepTime\": 60,\r\n    \"cookTime\": 60,\r\n    \"servings\": 4,\r\n    \"imageUrl\": \"http://example-img.com/img.jpg\",\r\n    \"ingredients\": [\r\n        { \"name\": \"Flour\", \"quantity\": 200, \"unit\": \"grams\" },\r\n        { \"name\": \"Milk\", \"quantity\": 300, \"unit\": \"ml\" },\r\n        { \"name\": \"Eggs\", \"quantity\": 2, \"unit\": \"pcs\" }\r\n    ],\r\n    \"instructions\": [\r\n        { \"step\": 1, \"description\": \"Mix flour, milk, and eggs.\" },\r\n        { \"step\": 2, \"description\": \"Heat pan and pour batter.\" },\r\n        { \"step\": 3, \"description\": \"Cook until golden brown.\" }\r\n    ],\r\n    \"categories\": [\r\n        { \"categoryId\": \"cmfp3esm20000tspscmtz8c4p\" },\r\n        { \"categoryId\": \"cmfp3esmm0002tspssvvum3lc\" }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -215,7 +215,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{flavornest-be-url}}/api/recipe/update/cmfnm1m3e0000bbnc4pknzlnt",
+							"raw": "{{flavornest-be-url}}/api/recipe/update/cmfp3x36z0000ts8s2p40r18n",
 							"host": [
 								"{{flavornest-be-url}}"
 							],
@@ -223,7 +223,7 @@
 								"api",
 								"recipe",
 								"update",
-								"cmfnm1m3e0000bbnc4pknzlnt"
+								"cmfp3x36z0000ts8s2p40r18n"
 							]
 						}
 					},
