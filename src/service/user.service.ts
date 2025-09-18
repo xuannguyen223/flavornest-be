@@ -25,8 +25,8 @@ class UserService {
     return UserRepository.createNewUser(user);
   };
 
-  static createOrUpdateProfile = (profile: Profile) => {
-    return UserProfileRepository.insertOrUpdateProfile(profile);
+  static createOrUpdateProfile = async (profile: Profile) => {
+    return await UserProfileRepository.insertOrUpdateProfile(profile);
   };
 
   static loginUser = async (email: string, password: string) => {

@@ -88,7 +88,7 @@ class CachingService {
       `${GOOGLE_AUTHORIZATION_STATE}:${state}`
     );
     if (exist === 1) {
-      redisClient.del(`${GOOGLE_AUTHORIZATION_STATE}:${state}`);
+      await redisClient.del(`${GOOGLE_AUTHORIZATION_STATE}:${state}`);
       return true;
     }
     return false;

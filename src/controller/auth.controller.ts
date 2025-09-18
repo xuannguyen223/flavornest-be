@@ -170,7 +170,7 @@ class AuthController {
     await CachingService.saveGoogleOauthState(state);
 
     // Generate a url that asks permissions for the Drive activity and Google Calendar scope
-    const authorizationUrl = GoogleIdentityService.generateAuthUrl(state);
+    const authorizationUrl = await GoogleIdentityService.generateAuthUrl(state);
 
     console.log("Authorization URL:", authorizationUrl); // Log the URL for debugging
     Send.success(
@@ -183,11 +183,12 @@ class AuthController {
   static googleOAuthCallback = async (req: Request, res: Response) => {
     // Handle the OAuth 2.0 server response
     let q = url.parse(req.url, true).query;
+    const isStateExist = await CachingService.googleOauthStateExists(q.state as string);
 
     if (q.error) {
       // An error response e.g. error=access_denied
       console.log("Error:" + q.error);
-    } else if (await CachingService.googleOauthStateExists(q.state as string)) {
+    } else if (!isStateExist) {
       //check state value
       console.log("State mismatch. Possible CSRF attack");
       return Send.badRequest(res, {}, "State mismatch. Possible CSRF attack");
@@ -207,7 +208,7 @@ class AuthController {
           httpOnly: true, // Ensure the cookie cannot be accessed via JavaScript (security against XSS attacks)
           secure: process.env.NODE_ENV === "production", // Set to true in production for HTTPS-only cookies
           maxAge: authConfig.access_token_expires_in_ms, // 15 minutes in mileseconds
-          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // Ensures the cookie is sent only with requests from the same site
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
         });
         res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
@@ -216,14 +217,7 @@ class AuthController {
           sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
         });
 
-        return Send.success(
-          res,
-          {
-            id: user.id,
-            email: user.email,
-          },
-          "Login successful."
-        );
+        return Send.redirect(res, process.env.FRONTEND_URL + "/");
       } else {
         Send.badRequest(res, {}, "Invalid or missing authorization code.");
       }
