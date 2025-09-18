@@ -7,7 +7,7 @@ import { z } from "zod";
 const recipeIdSchema = z.string().trim().min(1, "Recipe ID is required");
 const titleSchema = z.string().min(1, "Title is required");
 const descriptionSchema = z.string().optional();
-const totalTimeSchema = z.number().int().positive().optional();
+const timeSchema = z.number().int().positive().optional();
 const servingsSchema = z.number().int().positive().optional();
 const userIdSchema = z.string().trim().min(1, "User ID is required");
 const categoryNameSchema = z
@@ -24,7 +24,7 @@ const ingredientSchema = z.object({
 const instructionSchema = z.object({
   step: z.number().positive(),
   description: z.string().min(1),
-  imageUrl: z.string(),
+  imageUrl: z.string().optional(),
 });
 
 // GET /recipe/:recipeId
@@ -33,6 +33,13 @@ const getById = z.object({
     recipeId: recipeIdSchema,
   }),
 });
+
+const getAllRecipes = z.object({
+  query: z.object({
+    search: z.string().trim().min(1).optional(),
+    filter: z.string().trim().min(1).optional()
+  })
+})
 
 // POST /recipe/category
 const createCategory = z.object({
@@ -46,8 +53,11 @@ const createRecipe = z.object({
   body: z.object({
     title: titleSchema,
     description: descriptionSchema,
-    totalTime: totalTimeSchema,
+    cookTips: z.string().optional(),
+    prepTime: timeSchema,
+    cookTime: timeSchema,
     servings: servingsSchema,
+    imageUrl: z.string().optional(),
     ingredients: z
       .array(
         z.object({
@@ -84,10 +94,13 @@ const updateRecipe = z.object({
   }),
   body: z
     .object({
-      title: titleSchema.optional(),
-      description: descriptionSchema.optional(),
-      totalTime: totalTimeSchema.optional(),
-      servings: servingsSchema.optional(),
+      title: titleSchema,
+      description: descriptionSchema,
+      cookTips: z.string().optional(),
+      prepTime: timeSchema,
+      cookTime: timeSchema,
+      servings: servingsSchema,
+      imageUrl: z.string().optional(),
       ingredients: z
         .array(
           z.object({
@@ -173,6 +186,7 @@ const removeFavorite = z.object({
 
 export const recipeSchema = {
   getById,
+  getAllRecipes,
   createRecipe,
   createCategory,
   updateRecipe,

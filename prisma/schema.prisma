@@ -58,12 +58,15 @@ model Recipe {
   id           String          @id @default(cuid())
   title        String
   description  String?
+  cookTips     String?
   instructions RecipeInstruction[]
   ingredients  RecipeIngredient[]
-  totalTime    Int?            // in minutes
+  prepTime     Int?
+  cookTime     Int?
   servings     Int?
   rating       Float           @default(0)
   ratingCount  Int             @default(0)
+  imageUrl     String?
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
 
