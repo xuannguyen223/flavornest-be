@@ -10,8 +10,8 @@ class RecipeService {
     return RecipeRepository.queryById(id);
   }
 
-  static getAllRecipes = () => {
-    return RecipeRepository.queryAll();
+  static getAllRecipes = (options: { filter?: string; search?: string }) => {
+    return RecipeRepository.queryAll(options);
   };
 
   static getAllCategory = (type?: string) => {

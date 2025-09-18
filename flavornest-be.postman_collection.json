@@ -513,23 +513,32 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "flavornest-be-url",
-			"value": "http://localhost:3000",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "flavornest-be-url",
-			"value": "https://flavornest-be.vercel.app",
-			"type": "string"
-		},
-		{
-			"key": "flavornest-be-url",
-			"value": "https://test-be-express-32pvmu6n1-lukes-projects-761b9f6c.vercel.app/",
-			"type": "string",
-			"disabled": true
+			"value": "http://localhost:3000"
 		}
 	]
 }

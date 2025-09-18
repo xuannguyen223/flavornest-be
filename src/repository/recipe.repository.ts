@@ -25,14 +25,39 @@ class RecipeRepository {
     });
   };
 
-  static queryAll = async () => {
+  static queryAll = async (options: { filter?: string; search?: string }) => {
+    const { filter, search } = options;
+
     return await prisma.recipe.findMany({
+      where: {
+        AND: [
+          search
+            ? {
+                title: {
+                  contains: search,
+                  mode: "insensitive", // case-insensitive search
+                },
+              }
+            : {},
+          filter
+            ? {
+                categories: {
+                  some: {
+                    category: {
+                      name: {
+                        equals: filter,
+                        mode: "insensitive",
+                      },
+                    },
+                  },
+                },
+              }
+            : {},
+        ],
+      },
       include: {
         author: {
-          select: {
-            id: true,
-            email: true,
-          },
+          select: { id: true, email: true },
         },
         instructions: true,
         ingredients: true,
