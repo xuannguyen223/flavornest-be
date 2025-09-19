@@ -31,11 +31,12 @@ model User {
   updatedAt DateTime  @updatedAt
 
   // Relations
-  recipes   Recipe[]       // Recipes created by this user
-  favorites FavoriteRecipe[]
-  profile   Profile?
+  recipes      Recipe[]       // Recipes created by this user
+  favorites    FavoriteRecipe[]
+  profile      Profile?
   userRecipeList     UserRecipeList[]
-  ratings   RecipeRating[]
+  ratings      RecipeRating[]
+  preferences  UserCategoryPreference[]
 }
 
 enum Gender {
@@ -108,7 +109,9 @@ model Category {
   name         String            @unique
   type         CategoryType
   description  String?
+
   recipes      RecipeCategory[]
+  userPreferences UserCategoryPreference[]
 }
 
 enum CategoryType {
@@ -169,4 +172,14 @@ model UserRecipeListItem {
   recipe Recipe         @relation(fields: [recipeId], references: [id], onDelete: Cascade)
 
   @@id([listId, recipeId])
+}
+
+model UserCategoryPreference {
+  userId   String
+  categoryId String
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([userId, categoryId])
 }

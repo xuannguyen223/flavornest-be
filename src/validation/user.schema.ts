@@ -20,10 +20,24 @@ const updateProfile = z.object({
   }),
 });
 
+const updateUserPreference = z.object({
+  params: z.object({
+    userId: userIdSchema,
+  }),
+  body: z.object({
+    preferences: z.array(
+      z.object({
+        categoryId: z.string().min(1, "Invalid ID format"),
+      })
+    ),
+  }),
+});
+
 const userSchema = {
   getById,
   getProfileById,
   updateProfile,
+  updateUserPreference,
 };
 
 export default userSchema;
