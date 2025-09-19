@@ -6,6 +6,7 @@ import authConfig from "../config/auth.config.js";
 import CachingService from "./caching.service.js";
 import UserProfileRepository from "../repository/userProfile.repository.js";
 import UserPreferenceRepository from "../repository/userPreference.repository.js";
+import UserCollectionRepository from "../repository/userCollection.repository.js";
 
 class UserService {
   static getUserById = (id: string) => {
@@ -96,6 +97,68 @@ class UserService {
 
   static isUserLoginGoogle = (userId: string) => {
     return CachingService.hasGoogleAccessToken(userId);
+  };
+
+  static getAllUserCollections = (userId: string) => {
+    return UserCollectionRepository.queryAllUserRecipeList(userId);
+  };
+
+  static getUserCollectionById = (collectionId: string) => {
+    return UserCollectionRepository.queryUserRecipeListById(collectionId);
+  };
+
+  static createUserCollection = (userId: string, collectionName: string) => {
+    return UserCollectionRepository.createUserRecipeList(
+      userId,
+      collectionName
+    );
+  };
+
+  static updateUserCollection = (collectionId: string, updatedName: string) => {
+    return UserCollectionRepository.updateUserRecipeListName(
+      collectionId,
+      updatedName
+    );
+  };
+
+  static deleteUserCollection = (collectionId: string) => {
+    return UserCollectionRepository.deleteUserRecipeList(collectionId);
+  };
+
+  static getUserCollectionRecipes = (collectionId: string) => {
+    return UserCollectionRepository.queryAllRecipeByCollection(collectionId);
+  };
+
+  static addRecipeToUserCollection = (
+    collectionId: string,
+    recipeId: string
+  ) => {
+    return UserCollectionRepository.createUserRecipeListItem(
+      collectionId,
+      recipeId
+    );
+  };
+
+  static updateRecipeToNewCollection = async (
+    currentColId: string,
+    newColId: string,
+    recId: string
+  ) => {
+    await UserCollectionRepository.deleteUserRecipeListItem(
+      currentColId,
+      recId
+    );
+    return await UserCollectionRepository.createUserRecipeListItem(
+      newColId,
+      recId
+    );
+  };
+
+  static removeRecipeFromCollection = (collectionId: string, recId: string) => {
+    return UserCollectionRepository.deleteUserRecipeListItem(
+      collectionId,
+      recId
+    );
   };
 }
 

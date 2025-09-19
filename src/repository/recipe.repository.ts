@@ -1,9 +1,11 @@
-import { CategoryType, PrismaClient, type RecipeRating } from "../generated/prisma/client.js";
+import {
+  CategoryType,
+  PrismaClient,
+  type RecipeRating,
+} from "../generated/prisma/client.js";
 import type {
   CategoryCreateInput,
   RecipeCreateInput,
-  RecipeRatingUpdateInput,
-  RecipeRatingWhereUniqueInput,
   RecipeUpdateInput,
 } from "../generated/prisma/models.js";
 
@@ -41,8 +43,12 @@ class RecipeRepository {
     };
   };
 
-  static queryAll = async (options: { filter?: string; search?: string }) => {
-    const { filter, search } = options;
+  static queryAll = async (options: {
+    category?: string;
+    search?: string;
+    categoryType?: string;
+  }) => {
+    const { category, search, categoryType } = options;
 
     // 1. Get the recipes
     const recipes = await prisma.recipe.findMany({
@@ -56,15 +62,26 @@ class RecipeRepository {
                 },
               }
             : {},
-          filter
+          category
             ? {
                 categories: {
                   some: {
                     category: {
                       name: {
-                        equals: filter,
+                        equals: category,
                         mode: "insensitive",
                       },
+                    },
+                  },
+                },
+              }
+            : {},
+          categoryType
+            ? {
+                categories: {
+                  some: {
+                    category: {
+                      type: categoryType as CategoryType,
                     },
                   },
                 },
@@ -89,7 +106,7 @@ class RecipeRepository {
     const ratingStats = await prisma.recipeRating.groupBy({
       by: ["recipeId"],
       where: {
-        recipeId: { in: recipes.map(r => r.id) },
+        recipeId: { in: recipes.map((r) => r.id) },
       },
       _avg: { value: true },
       _count: { value: true },
@@ -97,13 +114,13 @@ class RecipeRepository {
 
     // 3. Map stats back to recipes
     const statsMap = Object.fromEntries(
-      ratingStats.map(stat => [
+      ratingStats.map((stat) => [
         stat.recipeId,
         { avgRating: stat._avg.value ?? 0, ratingCount: stat._count.value },
       ])
     );
 
-    return recipes.map(recipe => ({
+    return recipes.map((recipe) => ({
       ...recipe,
       avgRating: statsMap[recipe.id]?.avgRating ?? 0,
       ratingCount: statsMap[recipe.id]?.ratingCount ?? 0,
@@ -138,25 +155,24 @@ class RecipeRepository {
   };
 
   static updateOrInsertRatingByRecipeId = async (rr: RecipeRating) => {
-  return await prisma.recipeRating.upsert({
-    where: {
-      userId_recipeId: {
+    return await prisma.recipeRating.upsert({
+      where: {
+        userId_recipeId: {
+          userId: rr.userId,
+          recipeId: rr.recipeId,
+        },
+      },
+      update: {
+        value: rr.value,
+        updatedAt: new Date(),
+      },
+      create: {
         userId: rr.userId,
         recipeId: rr.recipeId,
+        value: rr.value,
       },
-    },
-    update: {
-      value: rr.value,
-      updatedAt: new Date(),
-    },
-    create: {
-      userId: rr.userId,
-      recipeId: rr.recipeId,
-      value: rr.value,
-    },
-  });
-};
-
+    });
+  };
 
   static updateById = async (
     id: string,

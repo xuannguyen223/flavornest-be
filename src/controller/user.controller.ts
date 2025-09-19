@@ -71,7 +71,169 @@ class UserController {
       await UserService.updateUserPreferences(userId, categoryIds);
       return Send.success(res, {}, "Update user preferences successfully");
     } catch (error) {
-      console.error("Error updating profile:", error);
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static getAllUserCollections = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collections = await UserService.getAllUserCollections(userId);
+      return Send.success(res, collections, "Get collections successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static getUserCollectionById = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collectionId = req.params.collectionId as string;
+
+      const collection = await UserService.getUserCollectionById(collectionId);
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+      return Send.success(res, collection, "Get collection successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static createUserCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collectionName = req.body.name;
+      const col = await UserService.createUserCollection(
+        userId,
+        collectionName
+      );
+      return Send.success(res, col, "Create collection successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static updateUserCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collectionId = req.params.collectionId as string;
+      const { name } = req.body;
+      const collection = await UserService.getUserCollectionById(collectionId);
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+
+      const update = await UserService.updateUserCollection(collectionId, name);
+      return Send.success(res, update, "  successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static deleteUserCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collectionId = req.params.collectionId as string;
+      const collection = await UserService.getUserCollectionById(collectionId);
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+
+      const del = await UserService.deleteUserCollection(collectionId);
+      return Send.success(res, del, "  successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static getRecipesFromCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collectionId = req.params.collectionId as string;
+      const collection = await UserService.getUserCollectionById(collectionId);
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+
+      const recipes = await UserService.getUserCollectionRecipes(collectionId);
+      return Send.success(
+        res,
+        recipes,
+        "Get recipes from collection successfully"
+      );
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static addRecipeUserCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const { collectionId, recipeId } = req.body;
+      const collection = await UserService.getUserCollectionById(collectionId);
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+
+      const created = await UserService.addRecipeToUserCollection(
+        collectionId,
+        recipeId
+      );
+      return Send.success(res, created, "  successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static updateRecipeUserCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const { currentCollectionId, newCollectionId, recipeId } = req.body;
+      const collection = await UserService.getUserCollectionById(
+        currentCollectionId
+      );
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+
+      const updated = await UserService.updateRecipeToNewCollection(
+        currentCollectionId,
+        newCollectionId,
+        recipeId
+      );
+      return Send.success(res, updated, "  successfully");
+    } catch (error) {
+      console.error("Error :", error);
+      return Send.error(res, {}, "Internal server error");
+    }
+  };
+
+  static deleteRecipeUserCollection = async (req: Request, res: Response) => {
+    try {
+      const userId = req.cookierUserId as string;
+      const collectionId = req.params.collectionId as string;
+      const recipeId = req.params.recipeId as string;
+      const collection = await UserService.getUserCollectionById(collectionId);
+      if (!collection || collection.userId !== userId) {
+        return Send.badRequest(res, {}, "Invalid request data");
+      }
+
+      const del = await UserService.removeRecipeFromCollection(
+        collectionId,
+        recipeId
+      );
+      return Send.success(res, del, "  successfully");
+    } catch (error) {
+      console.error("Error :", error);
       return Send.error(res, {}, "Internal server error");
     }
   };
