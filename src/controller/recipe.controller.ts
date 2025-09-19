@@ -46,7 +46,9 @@ class RecipeController {
   static getAllCategory = async (req: Request, res: Response) => {
     try {
       const type = req.query.type;
-      const categoryList = await RecipeService.getAllCategory(type ? type as string : undefined);
+      const categoryList = await RecipeService.getAllCategory(
+        type ? (type as string) : undefined
+      );
       return Send.success(res, { categoryList }, "Get all categories");
     } catch (error) {
       console.error("Error getting all category:", error);
@@ -71,7 +73,7 @@ class RecipeController {
       const recipeRating = {
         value: req.body.rating as number,
         userId: req.cookierUserId as string,
-        recipeId: req.params.recipeId as string
+        recipeId: req.params.recipeId as string,
       } as RecipeRating;
 
       const update = await RecipeService.updateRecipeRating(recipeRating);
@@ -81,7 +83,7 @@ class RecipeController {
       console.error("Error updating recipe:", error);
       return Send.error(res, {}, "Internal server error");
     }
-  }
+  };
 
   /**
    * Update an existing recipe
@@ -184,10 +186,15 @@ class RecipeController {
    */
   static getAllRecipes = async (req: Request, res: Response) => {
     try {
-      const { filter, search } = req.query;
+      const { search, category, categoryType } = req.query;
 
-      const options: { filter?: string; search?: string } = {};
-      if (typeof filter === "string") options.filter = filter;
+      const options: {
+        category?: string;
+        search?: string;
+        categoryType?: string;
+      } = {};
+      if (typeof category === "string") options.category = category;
+      if (typeof categoryType === "string") options.categoryType = categoryType;
       if (typeof search === "string") options.search = search;
 
       const recipes = await RecipeService.getAllRecipes(options);

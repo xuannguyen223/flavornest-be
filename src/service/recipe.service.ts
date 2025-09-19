@@ -11,7 +11,11 @@ class RecipeService {
     return RecipeRepository.queryById(id);
   }
 
-  static getAllRecipes = (options: { filter?: string; search?: string }) => {
+  static getAllRecipes = (options: {
+    category?: string;
+    search?: string;
+    categoryType?: string;
+  }) => {
     return RecipeRepository.queryAll(options);
   };
 
@@ -33,7 +37,7 @@ class RecipeService {
 
   static updateRecipeRating = async (recipeRating: RecipeRating) => {
     return await RecipeRepository.updateOrInsertRatingByRecipeId(recipeRating);
-  }
+  };
 
   static updateRecipe = (
     recipeId: string,

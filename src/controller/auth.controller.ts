@@ -23,7 +23,7 @@ class AuthController {
       console.log(existingUser);
       // If a user with the same email exists, return an error response
       if (existingUser) {
-        return Send.error(res, null, "Email is already in use.");
+        return Send.badRequest(res, null, "Email is already in use.");
       }
 
       // 2. Create a new user in the database with hashed password
@@ -63,7 +63,7 @@ class AuthController {
     try {
       const user = await UserService.loginUser(email, password);
       if (!user) {
-        return Send.error(res, null, "Invalid email or password.");
+        return Send.notFound(res, null, "Invalid email or password.");
       }
 
       const { accessToken, refreshToken } = await UserService.generateJwtTokens(
@@ -183,7 +183,9 @@ class AuthController {
   static googleOAuthCallback = async (req: Request, res: Response) => {
     // Handle the OAuth 2.0 server response
     let q = url.parse(req.url, true).query;
-    const isStateExist = await CachingService.googleOauthStateExists(q.state as string);
+    const isStateExist = await CachingService.googleOauthStateExists(
+      q.state as string
+    );
 
     if (q.error) {
       // An error response e.g. error=access_denied

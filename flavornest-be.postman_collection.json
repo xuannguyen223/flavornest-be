@@ -10,6 +10,233 @@
 			"name": "User APIs",
 			"item": [
 				{
+					"name": "Collection",
+					"item": [
+						{
+							"name": "Get All Collections",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/cmfqp1ukb0001tstwum7w5ptc",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"cmfqp1ukb0001tstwum7w5ptc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Collection",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Another Collection\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/create",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Collection Name",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Test Updated Name\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/cmfqopqou0001ts8o8g8hz4n7",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"cmfqopqou0001ts8o8g8hz4n7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Collection",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/cmfqopqou0001ts8o8g8hz4n7",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"cmfqopqou0001ts8o8g8hz4n7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Collection Recipes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/recipe/get/cmfqojyv00026tsz8gnu8yp0o",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"recipe",
+										"get",
+										"cmfqojyv00026tsz8gnu8yp0o"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Recipe User Collection",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"collectionId\": \"cmfqp1ukb0001tstwum7w5ptc\",\r\n    \"recipeId\": \"cmfqojyuk001wtsz8kj9lfjcg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/recipe/add",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"recipe",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Move Recipe To Collection",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"currentCollectionId\": \"cmfqp1ukb0001tstwum7w5ptc\",\r\n    \"newCollectionId\": \"cmfqpjk3f0003tstwwqsd227e\",\r\n    \"recipeId\": \"cmfqojyuk001wtsz8kj9lfjcg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/recipe/update",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"recipe",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Recipe Collection",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{flavornest-be-url}}/api/user/collection/recipe/delete/cmfqpjk3f0003tstwwqsd227e/cmfqojyuk001wtsz8kj9lfjcg",
+									"host": [
+										"{{flavornest-be-url}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"collection",
+										"recipe",
+										"delete",
+										"cmfqpjk3f0003tstwwqsd227e",
+										"cmfqojyuk001wtsz8kj9lfjcg"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Get User By ID",
 					"request": {
 						"method": "GET",
@@ -138,7 +365,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{flavornest-be-url}}/api/recipe/get",
+							"raw": "{{flavornest-be-url}}/api/recipe/get?categoryType=CUISINE",
 							"host": [
 								"{{flavornest-be-url}}"
 							],
@@ -146,6 +373,22 @@
 								"api",
 								"recipe",
 								"get"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "categoryType",
+									"value": "CUISINE"
+								}
 							]
 						}
 					},
