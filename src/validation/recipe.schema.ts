@@ -35,11 +35,13 @@ const getById = z.object({
 });
 
 const getAllRecipes = z.object({
-  query: z.object({
-    search: z.string().trim().min(1).optional(),
-    filter: z.string().trim().min(1).optional()
-  }).optional()
-})
+  query: z
+    .object({
+      search: z.string().trim().min(1).optional(),
+      filter: z.string().trim().min(1).optional(),
+    })
+    .optional(),
+});
 
 // POST /recipe/category
 const createCategory = z.object({
@@ -94,7 +96,7 @@ const updateRecipeRating = z.object({
   }),
   body: z.object({
     rating: z.number().positive().min(1).max(5),
-  })
+  }),
 });
 
 // PUT /api/recipe/update/:recipeId
@@ -135,7 +137,7 @@ const updateRecipe = z.object({
       categories: z
         .array(
           z.object({
-            categoryId: z.string().cuid("Invalid category ID format"),
+            categoryId: z.string().min(1, "Invalid ID format"),
           })
         )
         .optional(),

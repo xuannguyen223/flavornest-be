@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "976293a8-41f1-4f95-a77d-45e06cf535cc",
+		"_postman_id": "9be62a66-d812-4169-9de6-0cb837422512",
 		"name": "flavornest-be",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "47345513"
@@ -35,7 +35,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{flavornest-be-url}}/api/user/profile/cmfhuwbrl0002bbk8gsl69dmt",
+							"raw": "{{flavornest-be-url}}/api/user/profile/cmfq6rq3d001jbb7g5kvyab59",
 							"host": [
 								"{{flavornest-be-url}}"
 							],
@@ -43,7 +43,7 @@
 								"api",
 								"user",
 								"profile",
-								"cmfhuwbrl0002bbk8gsl69dmt"
+								"cmfq6rq3d001jbb7g5kvyab59"
 							]
 						}
 					},
@@ -79,12 +79,30 @@
 					"response": []
 				},
 				{
-					"name": "New request",
+					"name": "Update User Preferences",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"preferences\": [\r\n        {\"categoryId\": \"cmfq6rq36000qbb7guwvq2yg1\"},\r\n        {\"categoryId\": \"cmfq6rq36000rbb7gun367qpj\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "{{flavornest-be-url}}/api/user/preference/cmfq6rq3d001jbb7g5kvyab59",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"preference",
+								"cmfq6rq3d001jbb7g5kvyab59"
+							]
 						}
 					},
 					"response": []

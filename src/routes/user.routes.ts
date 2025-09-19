@@ -36,6 +36,18 @@ class UserRoutes extends BaseRouter {
         ],
         handler: UserController.updateUserProfile,
       },
+      {
+        method: "post",
+        path: "/preference/:userId", // api/user/preference/:userId
+        middlewares: [
+          AuthMiddleware.authenticateUser,
+          ValidationMiddleware.validate({
+            params: userSchema.updateUserPreference.shape.params,
+            body: userSchema.updateUserPreference.shape.body,
+          }),
+        ],
+        handler: UserController.updateUserPreferences,
+      },
     ];
   }
 }

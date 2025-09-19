@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import authConfig from "../config/auth.config.js";
 import CachingService from "./caching.service.js";
 import UserProfileRepository from "../repository/userProfile.repository.js";
+import UserPreferenceRepository from "../repository/userPreference.repository.js";
 
 class UserService {
   static getUserById = (id: string) => {
@@ -27,6 +28,22 @@ class UserService {
 
   static createOrUpdateProfile = async (profile: Profile) => {
     return await UserProfileRepository.insertOrUpdateProfile(profile);
+  };
+
+  static getUserPreferences = (userId: string) => {
+    return UserPreferenceRepository.queryAllByUserId(userId);
+  };
+
+  static updateUserPreferences = async (
+    userId: string,
+    categoryIds: string[]
+  ) => {
+    await UserPreferenceRepository.deleteAllByUserId(userId);
+    await Promise.all(
+      categoryIds.map((id) =>
+        UserPreferenceRepository.upsertUserPreference(userId, id)
+      )
+    );
   };
 
   static loginUser = async (email: string, password: string) => {
