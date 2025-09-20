@@ -22,12 +22,12 @@ class App {
   private initMiddlewares() {
     this.app.use(express.json());
     this.app.use(cookieParser());
+    const allowedOrigins = process.env.CORS_ALLOWED
+      ? process.env.CORS_ALLOWED.split(",").map((url) => url.trim())
+      : [];
     this.app.use(
       cors({
-        origin: [
-          "http://localhost:3000",
-          process.env.FLAVORNEST_FE_URL as string,
-        ],
+        origin: allowedOrigins,
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
       })

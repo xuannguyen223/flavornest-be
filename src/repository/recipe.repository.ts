@@ -20,6 +20,11 @@ class RecipeRepository {
           select: {
             id: true,
             email: true,
+            profile: {
+              select: {
+                name: true,
+              },
+            },
           },
         },
         instructions: true,
@@ -91,7 +96,11 @@ class RecipeRepository {
       },
       include: {
         author: {
-          select: { id: true, email: true },
+          select: {
+            id: true,
+            email: true,
+            profile: { select: { name: true } },
+          },
         },
         instructions: true,
         ingredients: true,
