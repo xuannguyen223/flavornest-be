@@ -14,7 +14,7 @@ class UserService {
   };
 
   static getUserProfileById = (userId: string) => {
-    return UserProfileRepository.queryById(userId);
+    return UserProfileRepository.queryByUserId(userId);
   };
 
   static getUserByEmail = (email: string) => {
