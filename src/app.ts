@@ -7,6 +7,7 @@ import userRoutes from "./routes/user.routes.js";
 import appConfig from "./config/app.config.js";
 import session from "express-session";
 import recipeRoutes from "./routes/recipe.routes.js";
+import cdnRoutes from "./routes/cdn.routes.js";
 
 class App {
   private app: Express;
@@ -47,6 +48,8 @@ class App {
     this.app.use("/api/user", userRoutes);
     // /api/recipe/*
     this.app.use("/api/recipe", recipeRoutes);
+    // /api/cdn/*
+    this.app.use("/api/cdn", cdnRoutes);
   }
 
   public start() {
