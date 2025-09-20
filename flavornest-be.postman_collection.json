@@ -801,6 +801,86 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "CDN APIs",
+			"item": [
+				{
+					"name": "Get Upload URL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{flavornest-be-url}}/api/cdn/get-upload-url?name=133878951925336028.jpg&type=image/jpeg",
+							"host": [
+								"{{flavornest-be-url}}"
+							],
+							"path": [
+								"api",
+								"cdn",
+								"get-upload-url"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "133878951925336028.jpg"
+								},
+								{
+									"key": "type",
+									"value": "image/jpeg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Image To CDN",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": ""
+							}
+						},
+						"url": {
+							"raw": "https://flavornest-bucket.s3.ap-southeast-2.amazonaws.com/1758349731666-133878951925336028.jpg?AWSAccessKeyId=AKIA6DMKALFG3O5IWKIK&Content-Type=image%2Fjpeg&Expires=1758349791&Signature=hhhDFr%2FxcYkkUHbc%2B8PhsUqocgs%3D",
+							"protocol": "https",
+							"host": [
+								"flavornest-bucket",
+								"s3",
+								"ap-southeast-2",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"1758349731666-133878951925336028.jpg"
+							],
+							"query": [
+								{
+									"key": "AWSAccessKeyId",
+									"value": "AKIA6DMKALFG3O5IWKIK"
+								},
+								{
+									"key": "Content-Type",
+									"value": "image%2Fjpeg"
+								},
+								{
+									"key": "Expires",
+									"value": "1758349791"
+								},
+								{
+									"key": "Signature",
+									"value": "hhhDFr%2FxcYkkUHbc%2B8PhsUqocgs%3D"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

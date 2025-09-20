@@ -91,8 +91,8 @@ class UserService {
     return CachingService.getUserRefreshToken(userId);
   };
 
-  static revokeRefreshToken = (userId: string) => {
-    CachingService.deleteUserRefreshToken(userId);
+  static revokeRefreshToken = async (userId: string) => {
+    await CachingService.deleteUserRefreshToken(userId);
   };
 
   static isUserLoginGoogle = (userId: string) => {
