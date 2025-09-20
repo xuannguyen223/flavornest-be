@@ -24,7 +24,10 @@ class App {
     this.app.use(cookieParser());
     this.app.use(
       cors({
-        origin: ["http://localhost:3000", "http://localhost:5173"],
+        origin: [
+          "http://localhost:3000",
+          process.env.FLAVORNEST_FE_URL as string,
+        ],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
       })
