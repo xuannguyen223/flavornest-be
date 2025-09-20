@@ -1,4 +1,4 @@
-import s3 from "../config/awsS3.config";
+import s3 from "../config/awsS3.config.js";
 
 class CDNService {
   private static BUCKET = process.env.AWS_S3_BUCKET;
