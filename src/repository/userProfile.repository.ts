@@ -3,8 +3,19 @@ import { PrismaClient, type Profile } from "../generated/prisma/client.js";
 const prisma = new PrismaClient();
 
 class UserProfileRepository {
-  static async queryById(id: string) {
-    return await prisma.profile.findUnique({ where: { userId: id } });
+  static async queryByUserId(uId: string) {
+    return await prisma.profile.findUnique({
+      where: { userId: uId },
+      select: {
+        id: false,
+        name: true,
+        age: true,
+        gender: true,
+        bio: true,
+        avatarUrl: true,
+        userId: true,
+      },
+    });
   }
 
   static async insertOrUpdateProfile(profileData: Profile) {
