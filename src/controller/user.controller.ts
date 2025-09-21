@@ -9,7 +9,7 @@ class UserController {
    */
   static getUserById = async (req: Request, res: Response) => {
     try {
-      const userId = req.params.userId;
+      const userId = req.cookierUserId;
       // Fetch the user data from the database (Prisma in this case)
       const user = await UserService.getUserById(userId as string);
 
@@ -28,7 +28,7 @@ class UserController {
 
   static getUserProfileById = async (req: Request, res: Response) => {
     try {
-      const userId = req.params.userId as string;
+      const userId = req.cookierUserId as string;
 
       // Fetch the user data from the database (Prisma in this case)
       const userProfile = await UserService.getUserProfileById(userId);
