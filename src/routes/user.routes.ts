@@ -10,6 +10,13 @@ class UserRoutes extends BaseRouter {
       {
         // get user info
         method: "get",
+        path: "/profile/get", // api/user/profile/get
+        middlewares: [AuthMiddleware.authenticateUser],
+        handler: UserController.getUserProfileById,
+      },
+      {
+        // get user info
+        method: "get",
         path: "/get/:userId", // api/user/get/:userId
         middlewares: [
           AuthMiddleware.authenticateUser,
