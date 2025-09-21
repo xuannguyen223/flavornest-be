@@ -108,8 +108,18 @@ class AuthController {
 
       // 3. Remove the access and refresh token cookies
       // We clear both cookies here (accessToken and refreshToken)
-      res.clearCookie("accessToken");
-      res.clearCookie("refreshToken");
+      res.clearCookie("accessToken", {
+        httpOnly: true, // Ensure the cookie cannot be accessed via JavaScript (security against XSS attacks)
+        secure: process.env.NODE_ENV === "production", // Set to true in production for HTTPS-only cookies
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // Ensures the cookie is sent only with requests from the same site
+        path: "/",
+      });
+      res.clearCookie("refreshToken", {
+        httpOnly: true, // Ensure the cookie cannot be accessed via JavaScript (security against XSS attacks)
+        secure: process.env.NODE_ENV === "production", // Set to true in production for HTTPS-only cookies
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict", // Ensures the cookie is sent only with requests from the same site
+        path: "/",
+      });
 
       if (await UserService.isUserLoginGoogle(userId)) {
         await GoogleIdentityService.revokeToken(userId);
