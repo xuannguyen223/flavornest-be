@@ -49,7 +49,7 @@ class RecipeRepository {
   };
 
   static queryAll = async (options: {
-    category?: string;
+    category?: string[];
     search?: string;
     categoryType?: string;
   }) => {
@@ -67,13 +67,13 @@ class RecipeRepository {
                 },
               }
             : {},
-          category
+          category && category.length > 0
             ? {
                 categories: {
                   some: {
                     category: {
                       name: {
-                        equals: category,
+                        in: category,
                         mode: "insensitive",
                       },
                     },

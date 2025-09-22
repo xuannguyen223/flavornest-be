@@ -189,11 +189,15 @@ class RecipeController {
       const { search, category, categoryType } = req.query;
 
       const options: {
-        category?: string;
+        category?: string[];
         search?: string;
         categoryType?: string;
       } = {};
-      if (typeof category === "string") options.category = category;
+      if (Array.isArray(category)) {
+        options.category = category.map((c) => String(c).trim());
+      } else if (typeof category === "string") {
+        options.category = [category.trim()];
+      }
       if (typeof categoryType === "string") options.categoryType = categoryType;
       if (typeof search === "string") options.search = search;
 

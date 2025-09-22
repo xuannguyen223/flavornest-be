@@ -12,7 +12,7 @@ class RecipeService {
   }
 
   static getAllRecipes = (options: {
-    category?: string;
+    category?: string[];
     search?: string;
     categoryType?: string;
   }) => {
