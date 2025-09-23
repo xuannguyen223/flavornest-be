@@ -5,7 +5,6 @@ import { getRandomIdx } from "../utils/get-random-idx.util";
 export async function userSeed(prisma: PrismaClient): Promise<User[]> {
   console.log("👤 Seeding 10 users...");
   try {
-    await defaultUserSeed(prisma);
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
     const users = (await res.json()) as UsersMockType[];
 
@@ -36,39 +35,4 @@ export async function userSeed(prisma: PrismaClient): Promise<User[]> {
 
   console.log("✅ Users seeded successfully!");
   return await prisma.user.findMany();
-}
-
-async function defaultUserSeed(prisma: PrismaClient) {
-  await prisma.user.create({
-    data: {
-      email: "john@example.com",
-      password: "hashedpassword123",
-      profile: {
-        create: {
-          name: "John Doe",
-          age: getRandomIdx(30) + 18, // Random age between 18-47
-          gender: "MALE",
-          bio: "Food enthusiast",
-          avatarUrl: "https://api.dicebear.com/9.x/big-smile/svg?seed=johndoe",
-        },
-      },
-    },
-  });
-
-  await prisma.user.create({
-    data: {
-      email: "jane@example.com",
-      password: "hashedpassword456",
-      profile: {
-        create: {
-          name: "Jane Smith",
-          age: getRandomIdx(30) + 18, // Random age between 18-47
-          gender: "FEMALE",
-          bio: "Loves cooking pasta",
-          avatarUrl:
-            "https://api.dicebear.com/9.x/big-smile/svg?seed=janesmith",
-        },
-      },
-    },
-  });
 }
