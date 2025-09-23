@@ -22,7 +22,11 @@ class GoogleIdentityService {
   private static SCOPES = (process.env.GOOGLE_OAUTH_SCOPES ?? "").split(",");
 
   private static verifyScopes = (scopes: string) => {
-    for (const scope of GoogleIdentityService.SCOPES) {
+    const requiredScopes = [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+    ];
+    for (const scope of requiredScopes) {
       if (!scopes.includes(scope)) {
         return false;
       }
@@ -91,9 +95,10 @@ class GoogleIdentityService {
             birthDate?.day
           ),
           gender:
-            (response.data.genders?.[0]?.value?.toUpperCase() as Gender) || Gender.FEMALE,
+            (response.data.genders?.[0]?.value?.toUpperCase() as Gender) ||
+            Gender.FEMALE,
           avatarUrl: response.data.photos?.[0]?.url || "",
-        }
+        };
         await UserService.createOrUpdateProfile(profile as Profile);
       }
 

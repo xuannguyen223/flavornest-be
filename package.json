@@ -8,7 +8,8 @@
     "swagger": "tsx swagger.ts",
     "dev": "tsx --env-file=.env src/server.ts",
     "build": "tsc",
-    "prisma-bin": "tsc && copy src\\generated\\prisma\\libquery_engine-rhel-openssl-3.0.x.so.node dist\\src\\generated\\prisma\\libquery_engine-rhel-openssl-3.0.x.so.node && copy src\\generated\\prisma\\query_engine-windows.dll.node dist\\src\\generated\\prisma\\query_engine-windows.dll.node",
+    "prisma-bin-windows": "tsc && copy src\\generated\\prisma\\libquery_engine-rhel-openssl-3.0.x.so.node dist\\src\\generated\\prisma\\libquery_engine-rhel-openssl-3.0.x.so.node && copy src\\generated\\prisma\\query_engine-windows.dll.node dist\\src\\generated\\prisma\\query_engine-windows.dll.node",
+    "prisma-bin-linux": "tsc && cp src/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node dist/src/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node",
     "postinstall": "prisma generate",
     "start": "node dist/src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
